@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+/* Canvas de desenho */
+#drawingCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    cursor: crosshair;
+}
+
+/* Toolbar flutuante */
+.toolbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(40, 40, 40, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-drag {
+    cursor: move;
+    padding: 4px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolbar-drag:hover {
+    color: #fff;
+}
+
+.tool-section {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.separator {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0 4px;
+}
+
+/* Botões de ferramenta */
+.tool-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.tool-btn.active {
+    background: #007AFF;
+    color: #fff;
+}
+
+/* Botões de cor */
+.color-btn {
+    width: 24px;
+    height: 24px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-btn:hover {
+    transform: scale(1.1);
+}
+
+.color-btn.active {
+    border-color: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+#customColor {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    background: transparent;
+}
+
+#customColor::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#customColor::-webkit-color-swatch {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+/* Slider de espessura */
+.size-label {
+    color: #888;
+    font-size: 11px;
+    margin-right: 4px;
+}
+
+.stroke-slider {
+    width: 80px;
+    height: 4px;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+}
+
+.stroke-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #007AFF;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.stroke-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.size-value {
+    color: #fff;
+    font-size: 11px;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Botões de ação */
+.action-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+#spotlightBtn.active {
+    background: #FF9500;
+    color: #fff;
+}
+
+#toggleDrawingBtn.inactive {
+    background: #FF3B30;
+    color: #fff;
+}
+
+/* Indicador de modo */
+.mode-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background: rgba(40, 40, 40, 0.9);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 12px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.mode-indicator.visible {
+    opacity: 1;
+}
+
+/* Spotlight overlay */
+#spotlightOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    pointer-events: none;
+}
+
+#spotlightOverlay.hidden {
+    display: none;
+}
+
+#spotlightHole {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    transition: all 0.1s ease;
+}
+
+/* Input de texto */
+.text-input {
+    position: fixed;
+    padding: 8px 12px;
+    border: 2px solid #007AFF;
+    border-radius: 6px;
+    background: rgba(40, 40, 40, 0.95);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    z-index: 10000;
+    min-width: 200px;
+}
+
+.text-input.hidden {
+    display: none;
+}
+
+/* Utilitários */
+.hidden {
+    display: none !important;
+}
+
+/* Cursor personalizado para borracha */
+.eraser-cursor {
+    cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="black" stroke-width="1"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>') 12 12, auto;
+}
+
+/* Animação de entrada da toolbar */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.toolbar {
+    animation: slideIn 0.3s ease;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 1200px) {
+    .toolbar {
+        flex-wrap: wrap;
+        max-width: 90vw;
+        justify-content: center;
+    }
+
+    .separator {
+        display: none;
+    }
+}
+
+/* Modo desativado */
+body.drawing-disabled #drawingCanvas {
+    pointer-events: none;
+}
+
+body.drawing-disabled .toolbar {
+    opacity: 0.6;
+}
