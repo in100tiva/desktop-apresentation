@@ -73,7 +73,7 @@ curl -fsSL https://bun.sh/install | bash
 
 ```bash
 # Clone o repositório
-git clone https://github.com/in100tiva/desktop-apresentation.git
+git clone https://github.com/in100tiva/Screen-Annotator.git
 cd desktop-apresentation
 
 # Instale as dependências
