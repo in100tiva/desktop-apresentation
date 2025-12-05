@@ -1,7 +1,7 @@
 # Screen Annotator
 
 <p align="center">
-  <img src="resources/icon.png" alt="Screen Annotator Logo" width="128" height="128">
+  <img src="desktop.png" alt="Screen Annotator Logo" width="128" height="128">
 </p>
 
 <p align="center">
