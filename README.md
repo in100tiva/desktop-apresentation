@@ -1,24 +1,113 @@
 # Screen Annotator
 
-Aplicativo de anotações na tela para Windows, ideal para apresentações, aulas e videoconferências. Similar ao Presentify para Mac.
+<p align="center">
+  <img src="resources/icon.png" alt="Screen Annotator Logo" width="128" height="128">
+</p>
 
-![Screen Annotator](https://img.shields.io/badge/Platform-Windows-blue) ![Electron](https://img.shields.io/badge/Electron-28.0-47848F)
+<p align="center">
+  <strong>Aplicativo de anotações na tela para apresentações e videoconferências</strong>
+</p>
+
+<p align="center">
+  <a href="#funcionalidades">Funcionalidades</a> •
+  <a href="#instalação">Instalação</a> •
+  <a href="#uso">Uso</a> •
+  <a href="#desenvolvimento">Desenvolvimento</a> •
+  <a href="#tecnologias">Tecnologias</a> •
+  <a href="#contribuição">Contribuição</a>
+</p>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey">
+  <img alt="Electron" src="https://img.shields.io/badge/Electron-28-47848F?logo=electron">
+  <img alt="React" src="https://img.shields.io/badge/React-18-61DAFB?logo=react">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript">
+</p>
+
+---
+
+## Sobre
+
+O **Screen Annotator** é um aplicativo desktop open-source que permite fazer anotações diretamente na tela do computador durante apresentações, aulas online e videoconferências. Similar ao [Presentify](https://presentify.compzets.com/) para macOS, mas disponível para Windows, macOS e Linux.
 
 ## Funcionalidades
 
-- **Desenho livre** - Caneta para desenhar livremente na tela
-- **Marcador/Highlighter** - Destacar texto com transparência
-- **Formas geométricas** - Retângulos, círculos, linhas e setas
-- **Texto** - Adicionar texto em qualquer lugar da tela
-- **Borracha** - Apagar anotações
-- **Spotlight** - Modo holofote para destacar uma área específica
-- **Cores personalizáveis** - 8 cores predefinidas + cor personalizada
-- **Espessura ajustável** - Controle do tamanho do traço
-- **Desfazer/Refazer** - Histórico completo de ações
-- **Toolbar arrastável** - Posicione a barra de ferramentas onde preferir
-- **System tray** - Minimiza para a bandeja do sistema
+### Ferramentas de Desenho
+- ✏️ **Caneta** - Desenho livre
+- 🖍️ **Marcador** - Destaque com transparência
+- ⬜ **Retângulo** - Formas retangulares
+- ⭕ **Círculo** - Formas circulares/elipses
+- ➡️ **Seta** - Indicar direções
+- ➖ **Linha** - Linhas retas
+- 📝 **Texto** - Adicionar texto
+- 🧹 **Borracha** - Apagar anotações
 
-## Atalhos de Teclado
+### Recursos Adicionais
+- 🔦 **Spotlight** - Holofote para destacar áreas específicas
+- 🎨 **Cores personalizáveis** - 9 cores predefinidas + seletor de cor
+- 📏 **Espessura ajustável** - Controle do tamanho do traço (1-50px)
+- ↩️ **Desfazer/Refazer** - Histórico completo de ações
+- ⌨️ **Atalhos personalizáveis** - Configure seus próprios atalhos
+- 🖱️ **Toolbar arrastável** - Posicione onde preferir
+- 📥 **System Tray** - Acesso rápido pela bandeja do sistema
+
+## Instalação
+
+### Pré-requisitos
+
+- [Bun](https://bun.sh/) v1.0+ (recomendado) ou [Node.js](https://nodejs.org/) v18+
+- Git
+
+### Instalando o Bun
+
+```bash
+# Windows (PowerShell)
+powershell -c "irm bun.sh/install.ps1 | iex"
+
+# macOS/Linux
+curl -fsSL https://bun.sh/install | bash
+```
+
+### Clone e Instale
+
+```bash
+# Clone o repositório
+git clone https://github.com/in100tiva/desktop-apresentation.git
+cd desktop-apresentation
+
+# Instale as dependências
+bun install
+```
+
+## Uso
+
+### Desenvolvimento
+
+```bash
+# Inicie o app em modo desenvolvimento com hot-reload
+bun run dev
+```
+
+### Build
+
+```bash
+# Build para produção
+bun run build
+
+# Build para Windows
+bun run build:win
+
+# Build para macOS
+bun run build:mac
+
+# Build para Linux
+bun run build:linux
+```
+
+Os executáveis serão gerados na pasta `dist/`.
+
+### Atalhos de Teclado Padrão
 
 | Atalho | Ação |
 |--------|------|
@@ -28,94 +117,134 @@ Aplicativo de anotações na tela para Windows, ideal para apresentações, aula
 | `Ctrl+Shift+S` | Alternar spotlight |
 | `Ctrl+Z` | Desfazer |
 | `Ctrl+Y` | Refazer |
-| `Ctrl+1` | Ferramenta caneta |
-| `Ctrl+2` | Ferramenta marcador |
-| `Ctrl+3` | Ferramenta retângulo |
-| `Ctrl+4` | Ferramenta círculo |
-| `Ctrl+5` | Ferramenta seta |
-| `Ctrl+6` | Ferramenta linha |
+| `Ctrl+1-6` | Selecionar ferramentas |
 | `Ctrl+E` | Borracha |
-| `T` | Ferramenta texto |
-| `1-6` | Selecionar ferramentas |
-| `E` | Borracha |
+| `T` | Ferramenta de texto |
 
-## Instalação
+> 💡 Todos os atalhos podem ser personalizados nas configurações!
 
-### Pré-requisitos
+## Desenvolvimento
 
-- [Node.js](https://nodejs.org/) (versão 18 ou superior)
-- npm (incluído com Node.js)
+### Estrutura do Projeto
 
-### Desenvolvimento
+```
+screen-annotator/
+├── .github/                    # Configurações do GitHub
+│   └── CONTRIBUTING.md         # Guia de contribuição
+├── resources/                  # Ícones e assets
+├── src/
+│   ├── main/                   # Electron Main Process
+│   │   └── index.ts            # Ponto de entrada principal
+│   ├── preload/                # Electron Preload Scripts
+│   │   └── index.ts            # Bridge de comunicação IPC
+│   ├── renderer/               # Aplicação React
+│   │   ├── components/         # Componentes React
+│   │   │   ├── ui/             # Componentes shadcn/ui
+│   │   │   ├── canvas/         # Canvas de desenho
+│   │   │   ├── toolbar/        # Barra de ferramentas
+│   │   │   └── settings/       # Modal de configurações
+│   │   ├── hooks/              # React Hooks customizados
+│   │   ├── stores/             # Zustand Stores
+│   │   ├── lib/                # Utilitários
+│   │   ├── styles/             # Estilos globais
+│   │   ├── App.tsx             # Componente principal
+│   │   └── main.tsx            # Ponto de entrada React
+│   └── shared/                 # Código compartilhado
+│       ├── types/              # TypeScript types
+│       └── constants/          # Constantes globais
+├── electron.vite.config.ts     # Configuração electron-vite
+├── tailwind.config.js          # Configuração Tailwind CSS
+├── tsconfig.json               # Configuração TypeScript
+├── components.json             # Configuração shadcn/ui
+└── package.json                # Dependências e scripts
+```
+
+### Scripts Disponíveis
+
+| Script | Descrição |
+|--------|-----------|
+| `bun run dev` | Inicia em modo desenvolvimento |
+| `bun run build` | Build para produção |
+| `bun run preview` | Preview do build |
+| `bun run build:win` | Build para Windows |
+| `bun run build:mac` | Build para macOS |
+| `bun run build:linux` | Build para Linux |
+| `bun run lint` | Executa o ESLint |
+| `bun run lint:fix` | Corrige erros do ESLint |
+| `bun run typecheck` | Verifica tipos TypeScript |
+| `bun run clean` | Limpa arquivos de build |
+
+### Adicionando Componentes shadcn/ui
 
 ```bash
-# Clonar o repositório
-git clone <url-do-repositorio>
-cd desktop-apresentation
-
-# Instalar dependências
-npm install
-
-# Executar em modo desenvolvimento
-npm start
+# O projeto já inclui os componentes necessários
+# Para adicionar novos, copie de: https://ui.shadcn.com/docs/components
 ```
 
-### Build para Windows
+## Tecnologias
 
-```bash
-# Criar instalador para Windows
-npm run build:win
-
-# Criar versão portable (sem instalação)
-npm run build:portable
-```
-
-Os arquivos de build serão gerados na pasta `dist/`.
-
-## Estrutura do Projeto
-
-```
-desktop-apresentation/
-├── assets/              # Ícones e recursos
-├── main.js              # Processo principal do Electron
-├── preload.js           # Script de preload (segurança)
-├── index.html           # Interface do usuário
-├── styles.css           # Estilos da interface
-├── renderer.js          # Lógica de desenho e interação
-├── package.json         # Configuração do projeto
-└── README.md            # Documentação
-```
-
-## Como Usar
-
-1. **Iniciar o aplicativo** - Execute `npm start` ou o executável gerado
-2. **Desenhar** - Clique e arraste no canvas para desenhar
-3. **Trocar ferramenta** - Use a toolbar ou atalhos de teclado
-4. **Mudar cor** - Clique nas cores da toolbar ou use o seletor de cor personalizada
-5. **Ajustar espessura** - Use o slider na toolbar
-6. **Spotlight** - Ative para destacar uma área circular (útil para apresentações)
-7. **Modo visualização** - Desative o modo desenho para interagir com apps por baixo
-8. **Minimizar** - Clique no botão minimizar ou use `Ctrl+Shift+A`
-
-## Dicas de Uso
-
-- Durante videoconferências, compartilhe a tela inteira para que os participantes vejam suas anotações
-- Use o **modo spotlight** para chamar atenção para pontos específicos
-- O **marcador/highlighter** é ótimo para destacar texto sem cobri-lo
-- Use **setas** para indicar fluxos ou direções
-- **Desfazer** (`Ctrl+Z`) é seu amigo - não tenha medo de experimentar!
-
-## Tecnologias Utilizadas
-
-- [Electron](https://www.electronjs.org/) - Framework para apps desktop
-- HTML5 Canvas - Renderização de desenhos
-- JavaScript ES6+ - Lógica da aplicação
-- CSS3 - Estilização da interface
-
-## Licença
-
-MIT License - Sinta-se livre para usar, modificar e distribuir.
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| [Electron](https://www.electronjs.org/) | 28+ | Framework para apps desktop |
+| [React](https://react.dev/) | 18+ | Biblioteca de UI |
+| [TypeScript](https://www.typescriptlang.org/) | 5+ | Superset tipado de JavaScript |
+| [Vite](https://vitejs.dev/) | 5+ | Build tool e dev server |
+| [electron-vite](https://electron-vite.org/) | 2+ | Integração Electron + Vite |
+| [Tailwind CSS](https://tailwindcss.com/) | 3+ | Framework CSS utility-first |
+| [shadcn/ui](https://ui.shadcn.com/) | - | Componentes UI acessíveis |
+| [Zustand](https://zustand-demo.pmnd.rs/) | 4+ | Gerenciamento de estado |
+| [Konva](https://konvajs.org/) | 9+ | Canvas 2D para React |
+| [Lucide](https://lucide.dev/) | - | Ícones SVG |
+| [Bun](https://bun.sh/) | 1+ | Runtime JavaScript rápido |
 
 ## Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
+Contribuições são muito bem-vindas! Veja o [Guia de Contribuição](.github/CONTRIBUTING.md) para detalhes.
+
+### Como Contribuir
+
+1. **Fork** o repositório
+2. **Clone** seu fork: `git clone https://github.com/seu-usuario/desktop-apresentation.git`
+3. **Crie uma branch**: `git checkout -b feature/nova-funcionalidade`
+4. **Faça suas alterações** e commit: `git commit -m 'feat: adiciona nova funcionalidade'`
+5. **Push** para seu fork: `git push origin feature/nova-funcionalidade`
+6. Abra um **Pull Request**
+
+### Convenção de Commits
+
+Usamos [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `feat:` Nova funcionalidade
+- `fix:` Correção de bug
+- `docs:` Documentação
+- `style:` Formatação (não afeta código)
+- `refactor:` Refatoração de código
+- `test:` Testes
+- `chore:` Manutenção
+
+## Roadmap
+
+- [ ] Salvar/carregar anotações como arquivo
+- [ ] Camadas (layers) para organizar desenhos
+- [ ] Gravar tela com anotações
+- [ ] Zoom e pan no canvas
+- [ ] Mais formas: estrela, polígono, nuvem de fala
+- [ ] Temas claro/escuro personalizáveis
+- [ ] Exportar como imagem (PNG/SVG)
+- [ ] Suporte a touch/stylus
+- [ ] Múltiplos monitores
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+---
+
+<p align="center">
+  Feito com ❤️ pela comunidade
+</p>
+
+<p align="center">
+  <a href="https://github.com/in100tiva/desktop-apresentation/issues">Reportar Bug</a> •
+  <a href="https://github.com/in100tiva/desktop-apresentation/issues">Solicitar Feature</a>
+</p>
