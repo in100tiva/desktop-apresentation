@@ -1,0 +1,45 @@
+{
+  "name": "screen-annotator",
+  "version": "1.0.0",
+  "description": "Aplicativo de anotações na tela para apresentações e videoconferências",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:portable": "electron-builder --win portable"
+  },
+  "keywords": [
+    "screen",
+    "annotation",
+    "presentation",
+    "drawing",
+    "overlay"
+  ],
+  "author": "Screen Annotator",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.screenannotator.app",
+    "productName": "Screen Annotator",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico"
+    }
+  }
+}
